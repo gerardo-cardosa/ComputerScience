@@ -4,124 +4,231 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to my page :)</title>
-
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/5.5.8/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
+    <link rel="icon" 
+      type="image/png" 
+      href="res/favicon.ico">
+    <!-- update the version number as needed
+    <script defer src="/__/firebase/5.5.8/firebase-app.js"></script> -->
+    <!-- include only the Firebase features as you need 
     <script defer src="/__/firebase/5.5.8/firebase-auth.js"></script>
     <script defer src="/__/firebase/5.5.8/firebase-database.js"></script>
     <script defer src="/__/firebase/5.5.8/firebase-messaging.js"></script>
     <script defer src="/__/firebase/5.5.8/firebase-storage.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
 
-    <!-- P5 files -->
+    -->
+    <!-- initialize the SDK after all desired features are loaded 
+    <script defer src="/__/firebase/init.js"></script>-->
+
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
+    <link rel="stylesheet" href="css/style.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+ 
+    <!-- JS files -->
+    <script src="js/main.js"></script>
+
+      <!-- P5 files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+
   </head>
   <body>
-    <div>
-        <title>Description</title>
-        <p>For the past 4 years I've beein working as a Developer Support Specialist and, while I have learned a lot during this time the importance of customer service and how to talki
-          with customes (in this case, developer), I've lost coding skills. In this job, although I need to do small programs to test and verify issues, it doesn't comper to do real coding.
-          I recently had an interview and I knew I was a bit rusty and after starting to prepare for the interview, I was surprised that, not only was I extremly rusty on coding, but also
-          on computer science topics. It was shocking, even my skills to think and use logic to resolve problems was deteriorated. 
-          
-          I've been studying for the past few months and while I'm able to resolve some problems now (I've been re-gaining some of the losts skills 😀 ) I think I still need a lot of practice
-          to do. For this reason, I decided to create this website. 
+    <div class="container-fluid">
+        <div class="row" >
+          <div class="col-10 ">
+              <h1>Data Structures</h1>
+          </div>  
+        </div>
 
-          My intention is to create a visual representation of computer science topics. For this, I will be using P5.js 
+        <div class="row">
+          <div class="col-2">
+              <div class="accordion" id="sortingAlgorithmsAccordion">
+                  <div class="card">
+                    <div class="card-header" id="sortingAlgorithms">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#sortingAlgorithmsList" aria-expanded="true" aria-controls="sortingAlgorithmsList">
+                          Sorting Algorithms
+                        </button>
+                      </h5>
+                    </div>
+                
+                    <div id="sortingAlgorithmsList" class="collapse show" aria-labelledby="sortingAlgorithms" data-parent="#sortingAlgorithmsAccordion">
+                      <div class="card-body">
+                          <button type="button" onclick="setBubble()" class="btn btn-secondary btn-lg btn-block">Bubble Sort</button>
+                          <button type="button" onclick="setSelectionSort()" class="btn btn-secondary btn-lg btn-block">Selection</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Shell</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Bucket sort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Radix sort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Merge sort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Quicksort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Heapsort</button>    
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Comparison</button>                    
+                      </div>
+                    </div>
+                  </div>
 
-          I know, the website looks terrible right now. But this is something I will improve little by little and hopefully, I will increase my skills as well as to learn some new things. 
+                  <!-- Template -->
+                  <div class="card">
+                    <div class="card-header" id="SearchAlgoriths">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#SearchAlgorithsList" aria-expanded="false" aria-controls="SearchAlgorithsList">
+                            Search Algoriths
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="SearchAlgorithsList" class="collapse" aria-labelledby="SearchAlgoriths" data-parent="#sortingAlgorithmsAccordion">
+                      <div class="card-body">
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Linear search</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block">Binary search</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of Template -->
+                   <!-- Template -->
+                   <div class="card">
+                      <div class="card-header" id="Arrays">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ArraysList" aria-expanded="false" aria-controls="ArraysList">
+                            Arrays
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="ArraysList" class="collapse" aria-labelledby="Arrays" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Unidimensional array</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">2D arrays</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Linear representaton of multidimension arrays</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Matrix</button>                        
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="StacksAndQueues">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#StacksAndQueuesList" aria-expanded="false" aria-controls="StacksAndQueuesList">
+                            Stacks and Queues
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="StacksAndQueuesList" class="collapse" aria-labelledby="StacksAndQueues" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Stacks</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Queue</button>  
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="Lists">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ListsList" aria-expanded="false" aria-controls="ListsList">
+                            Lists
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="ListsList" class="collapse" aria-labelledby="Lists" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Single linked lists</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Double linked lists</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="Trees">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#TreesList" aria-expanded="false" aria-controls="TreesList">
+                            Trees
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="TreesList" class="collapse" aria-labelledby="Trees" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Basic trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Binary trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Binary search tree</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Tries</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Balanced tree</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">ALV trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Red-Black trees</button>  
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="Graphs">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#GraphsList" aria-expanded="false" aria-controls="GraphsList">
+                            Graphs
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="GraphsList" class="collapse" aria-labelledby="Graphs" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Graphs</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Graph search</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Topological sort</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block">Dijkstra's algorithm</button>  
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="BinaryOperations">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#BinaryOperationsList" aria-expanded="false" aria-controls="BinaryOperationsList">
+                              Binary Operations
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="BinaryOperationsList" class="collapse" aria-labelledby="BinaryOperations" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                          TODO  
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+                     <!-- Template -->
+                  <div class="card">
+                      <div class="card-header" id="Strings">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#StringsList" aria-expanded="false" aria-controls="StringsList">
+                            Strings
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="StringsList" class="collapse" aria-labelledby="Strings" data-parent="#sortingAlgorithmsAccordion">
+                        <div class="card-body">
+                          TODO  
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Template -->
+          </div>
 
-          I plan to provide a brief description of each topic, a visual representation and (hopefully) visual representation of the related operations.
+        
+        
 
-          These are the topics I'm planning to cover:
-        </p>
-        <ul>
-          <li>
-            <b>Sorting algorithms</b>
-            <ul>
-              <li>Bubble Sort</li>
-              <li>Selection</li>
-              <li>Shell</li>
-              <li>Bucket sort</li>
-              <li>Radix sort</li>
-              <li>Merge sort</li>
-              <li>Quicksort</li>
-              <li>Heapsort</li>
-            </ul>
+        </div>
+       <!-- Container for display -->
+       <div id="display" class="col-10 ">
+          <div class="container-fluid" id="sketch-holder">
 
-          </li>
-          <!-- Search Algoriths -->
-          <li>
-            <b>Search Algoriths</b>
-            <ul>
-              <li>Linear search</li>
-              <li>Binary search</li>
-
-            </ul>
-          </li>
-          <!-- Arrays -->
-          <li>
-            <b>Arrays</b>
-            <ul>
-              <li>Unidimensional array</li>
-              <li>2D arrays</li>
-              <li>Linear representaton of multidimension arrays</li>
-              <li>Matrix</li>
-            </ul>
-          </li>
-          <!-- Stack and Queues-->
-          <li>
-            <b>Stacks and Queues</b>
-            <ul>
-              <li>Stacks</li>
-              <li>Queue</li>
-            </ul>
-          </li>
-          <!-- Lists -->
-          <li>
-            <b>Lists</b>
-            <ul>
-              <li>Single linked lists</li>
-              <li>Double linked lists</li>
-            </ul>
-          </li>
-          <!-- Trees -->
-          <li>
-            <b>Trees</b>
-            <li>Basic trees</li>
-            <li>Binary trees</li>
-            <li>Binary search tree</li>
-            <li>Tries</li>
-            <li>Balanced tree</li>
-            <li>ALV trees</li>
-            <li>Red-Black trees</li>
-          </li>
-          <!-- Graphs -->
-          <li>
-            <b>Graphs</b>
-            <ul>
-              <li>Graphs</li>
-              <li>Graph search</li>
-              <li>Topological sort</li>
-              <li>Dijkstra's algorithm</li>
-
-            </ul>
-          </li>
-
-          <!-- Binary operations -->
-          <li>
-            <b>Binary Operations</b>
-          </li>
-          <!-- Strings -->
-          <li>
-            <b>Strings</b>
-          </li>
-        </ul>
-    </div>
-    
+            </div>
+       </div>
+    </div>    
   </body>
 </html>
