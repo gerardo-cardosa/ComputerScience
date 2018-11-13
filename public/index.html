@@ -63,13 +63,13 @@
                       <div class="card-body">
                           <button type="button" onclick="setBubble()" class="btn btn-secondary btn-lg btn-block">Bubble Sort</button>
                           <button type="button" onclick="setSelectionSort()" class="btn btn-secondary btn-lg btn-block">Selection</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Shell</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Bucket sort</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Radix sort</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Merge sort</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Quicksort</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Heapsort</button>    
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Comparison</button>                    
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Shell</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Bucket sort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Radix sort</button>
+                          <button type="button" onclick="setMergeSort()" class="btn btn-secondary btn-lg btn-block">Merge sort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Quicksort</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Heapsort</button>    
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Comparison</button>                    
                       </div>
                     </div>
                   </div>
@@ -85,8 +85,8 @@
                     </div>
                     <div id="SearchAlgorithsList" class="collapse" aria-labelledby="SearchAlgoriths" data-parent="#sortingAlgorithmsAccordion">
                       <div class="card-body">
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Linear search</button>
-                          <button type="button" class="btn btn-secondary btn-lg btn-block">Binary search</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Linear search</button>
+                          <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Binary search</button>
                       </div>
                     </div>
                   </div>
@@ -102,10 +102,10 @@
                       </div>
                       <div id="ArraysList" class="collapse" aria-labelledby="Arrays" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Unidimensional array</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">2D arrays</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Linear representaton of multidimension arrays</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Matrix</button>                        
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Unidimensional array</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">2D arrays</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Linear representaton of multidimension arrays</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Matrix</button>                        
                         </div>
                       </div>
                     </div>
@@ -121,8 +121,8 @@
                       </div>
                       <div id="StacksAndQueuesList" class="collapse" aria-labelledby="StacksAndQueues" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Stacks</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Queue</button>  
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Stacks</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Queue</button>  
                         </div>
                       </div>
                     </div>
@@ -138,8 +138,8 @@
                       </div>
                       <div id="ListsList" class="collapse" aria-labelledby="Lists" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Single linked lists</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Double linked lists</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Single linked lists</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Double linked lists</button>
                         </div>
                       </div>
                     </div>
@@ -155,13 +155,13 @@
                       </div>
                       <div id="TreesList" class="collapse" aria-labelledby="Trees" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Basic trees</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Binary trees</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Binary search tree</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Tries</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Balanced tree</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">ALV trees</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Red-Black trees</button>  
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Basic trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Binary trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Binary search tree</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Tries</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Balanced tree</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">ALV trees</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Red-Black trees</button>  
                         </div>
                       </div>
                     </div>
@@ -177,10 +177,10 @@
                       </div>
                       <div id="GraphsList" class="collapse" aria-labelledby="Graphs" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Graphs</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Graph search</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Topological sort</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block">Dijkstra's algorithm</button>  
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Graphs</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Graph search</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Topological sort</button>
+                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Dijkstra's algorithm</button>  
                         </div>
                       </div>
                     </div>
@@ -228,7 +228,9 @@
           <div class="container-fluid" id="sketch-holder">
 
             </div>
+
        </div>
+       
     </div>    
   </body>
 </html>
