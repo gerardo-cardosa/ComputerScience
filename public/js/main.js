@@ -1,7 +1,7 @@
 function setup() {
     var parent = 'sketch-holder';
     var width = document.getElementById(parent).offsetWidth;
-    var canvas = createCanvas(width-100, width/2);
+    var canvas = createCanvas(width-100, width-100);
     canvas.parent(parent);
     background(200);
   }
@@ -11,11 +11,11 @@ var draw = function(){
 }
 
 function createArrayOfRandomVals(){
-    var size = Math.floor(Math.random() * 21); 
+    var size = Math.floor(Math.random() * 100); 
 
     var arr = []
     for(var i = 0; i<=size; i++){
-        arr[i] = Math.floor(Math.random() * 110);  
+        arr[i] = Math.floor(Math.random() * 500);  
     }
     return arr;
 }
@@ -313,3 +313,80 @@ function setMergeSort(){
     }
 }
   
+
+
+function bubble(){
+    var fillBlack = 0 ;
+    var fillWhite = 255
+    //var unorderedArray = [2,6,3,1,5];
+    var unorderedArray = createArrayOfRandomVals();
+    var barWidth = 20;
+    var current = 0;
+    var compare = 1;
+    var speed = 10;
+    var speedCount =1;
+
+    var isDone =  false;
+
+    noLoop();
+    redraw();
+    calculateBubble();
+
+    function calculateBubble(){
+
+
+        function bub(){
+            if(unorderedArray[current] > unorderedArray[compare]){
+                var swap = unorderedArray[current];
+                unorderedArray[current] = unorderedArray[compare];
+                unorderedArray[compare] = swap;
+            }
+            
+
+            compare++;
+           
+            if(compare >= unorderedArray.length){
+                current++;
+                compare=current+1;
+                if(current >= unorderedArray.length ){
+                    redraw();
+                    return;
+                }
+            }
+            redraw();
+            setTimeout(bub, 0);
+
+        }
+        
+        setTimeout(bub,500);            
+                       
+
+    }
+
+
+    draw = function(){
+        clear();
+        background(200);
+        fill(0);
+        // draw the array
+        translate(30,20);
+        for(var i=0; i< unorderedArray.length; i++){
+            translate(10,0);
+            //line(0, 0, 0, unorderedArray[i]*10);
+            if(i == current){
+                fill(200);
+            }
+            else if(i == compare) {
+                fill(140);
+            }
+            else{
+                fill(0);
+            }
+
+           // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+           line(0,0, 0, unorderedArray[i] );
+        }
+
+    }
+
+}
