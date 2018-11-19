@@ -84,7 +84,7 @@ function setBubble(){
 }
 
 function setSelectionSort(){
-    var speed = 10;
+    var speed = 2;
     var speedCount = 1;
     var minPos = 0;
     var currPos = 1;
@@ -104,7 +104,8 @@ function setSelectionSort(){
             //draw array
             translate(30,20);
             for(var i=0; i< unorderedArray.length; i++){
-                translate(barWidth*2,0);
+               // translate(barWidth*2,0);
+               translate(10,0);
                 //line(0, 0, 0, unorderedArray[i]*10);
                 //already sorted elements
                 if(i <= arrPos ){
@@ -120,7 +121,8 @@ function setSelectionSort(){
                     fill(0);
                 }
     
-                rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+               // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+               line(0,0, 0, unorderedArray[i] );
             }
 
         if(!isDone){
@@ -164,7 +166,7 @@ function setSelectionSort(){
 
 
 function setMergeSort(){
-    var speed = 10;
+    var speed = 2;
     var speedCount = 1;
 
     var postion = function(start, end){
@@ -205,7 +207,7 @@ function setMergeSort(){
             //draw array
             translate(30,20);
             for(var i=0; i< unorderedArray.length; i++){
-                translate(barWidth*2,0);
+                translate(10,0);
                 //line(0, 0, 0, unorderedArray[i]*10);
                 //already sorted elements
                 if(i <= unorderedArray.length/2 ){
@@ -216,7 +218,8 @@ function setMergeSort(){
                     fill(0);
                 }
     
-                rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+               // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+               line(0,0, 0, unorderedArray[i] );
             }
 
         if(!isDone){
@@ -355,7 +358,7 @@ function bubble(){
             }
             redraw();
             setTimeout(bub, 0);
-
+            //bub();
         }
         
         setTimeout(bub,500);            
@@ -383,6 +386,237 @@ function bubble(){
                 fill(0);
             }
 
+           // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+           line(0,0, 0, unorderedArray[i] );
+        }
+
+    }
+
+}
+
+
+
+
+
+function selection(){
+
+    //var unorderedArray = [2,6,3,1,5];
+    var unorderedArray = createArrayOfRandomVals();
+    var current = 0;
+    var compare = 1;
+    var min = 0;
+
+
+    var isDone =  false;
+
+    noLoop();
+    redraw();
+    calculaSelect();
+
+    function calculaSelect(){
+
+
+        function selection(){
+
+
+            if(unorderedArray[min] > unorderedArray[compare]){
+               min = compare;
+            }
+            
+
+            compare++;
+           
+            if(compare >= unorderedArray.length){
+                //swap current with min
+                var swap = unorderedArray[min];
+                unorderedArray[min] = unorderedArray[current];
+                unorderedArray[current] = swap;
+
+
+                current++;
+                min = current;
+                compare=current+1;
+                if(current >= unorderedArray.length ){
+                    redraw();
+                    return;
+                }
+            }
+            redraw();
+            setTimeout(selection, 0);
+        }
+        
+        setTimeout(selection,500);            
+                       
+
+    }
+
+
+    draw = function(){
+        clear();
+        background(200);
+        fill(0);
+        // draw the array
+        translate(30,20);
+        for(var i=0; i< unorderedArray.length; i++){
+            translate(10,0);
+            //line(0, 0, 0, unorderedArray[i]*10);
+            if(i == current){
+                fill(200,45,76);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            else if(i == compare) {
+                fill(140);
+            }
+            else if(i == min){
+                fill(100,45,76);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            else{
+                fill(0);
+            }
+
+           // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+           line(0,0, 0, unorderedArray[i] );
+        }
+
+    }
+
+}
+
+
+
+
+function quickSort(){
+
+    //var unorderedArray = [20,60,30,10,50];
+    
+    var unorderedArray = createArrayOfRandomVals();
+    //console.log(unorderedArray);
+    var left = 0;
+    var right = unorderedArray.length;
+    var pivot = 0; 
+    var start = 0;
+    var end = right; 
+    var speed = 300;
+
+
+    var isDone =  false;
+
+    noLoop();
+    redraw();
+    calculaQuickSort();
+
+    function calculaQuickSort(){
+
+        function quickSo(){
+           setTimeout(quick(0, unorderedArray.length -1), speed);
+        }
+
+
+        function quick(l, r){
+            if(l >= r){
+                return;
+            }
+
+            let pivo = unorderedArray[ parseInt((l+r)/2)];
+           // console.log('Pivot calculation: ' + pivo  +  ' l: ' + l + ' r:' +r + ' div: ' + parseInt((l+r)/2) );
+           setTimeout(partition(l, r , pivo), speed);
+            var index = left;
+           // console.log('Index: ' + index);
+            start = l; end = index-1
+          //  console.log('Left Part ---------');
+            setTimeout(quick(start, end), speed);
+            start = index; end = r;
+         //   console.log('Right Part ---------');
+            setTimeout(quick(start, end), speed);
+
+          //  console.log(unorderedArray);
+        }
+
+
+        function partition(le, ri, piv){
+            
+            left = le;
+            right = ri;
+            pivot = piv;
+         //   console.log('Pivot: ' + pivot + ' Left: ' + left + ' Right: ' + right);
+            if(le <= ri){
+                if(unorderedArray[le] < piv){
+                    le++;
+                    redraw();
+                    setTimeout(partition(le, ri, piv), speed);
+                    
+                }
+
+                else if(unorderedArray[ri] > pivot){
+                    ri --;
+                    redraw();
+                    setTimeout(partition(le, ri, piv), speed);
+                   
+                }
+
+                else if(le <= ri){
+            //        console.log('Swap ---');
+             //       console.log(unorderedArray);
+                    //swap
+                    var swap = unorderedArray[le];
+                    unorderedArray[le] =  unorderedArray[ri];
+                    unorderedArray[ri] = swap;
+              //      console.log('Swaped ---');
+              //      console.log(unorderedArray);
+                    le++;
+                    ri--;
+                    redraw();
+                    setTimeout(partition(le, ri, piv), speed);
+                   
+                }
+                redraw();
+            }
+            redraw();
+        }
+        
+        redraw();
+        setTimeout(quickSo,speed);            
+                       
+
+    }
+
+
+    draw = function(){
+
+        console.log('Draw Functions');
+
+        clear();
+        background(200);
+        fill(0);
+        // draw the array
+        translate(30,20);
+        for(var i=0; i< unorderedArray.length; i++){
+            translate(10,0);
+            //line(0, 0, 0, unorderedArray[i]*10);
+
+            // betweem start and end
+
+            if(i >= start && i <= end){
+                fill(200,45,76);
+            }
+            else if(i == pivot) {
+                fill(140);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            else if(i == left){
+                fill(100,45,76);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            else if(i == right){
+                fill(100,145,76);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            else{
+                fill(0);
+            }
+
+            //triangle(0,-5, -5, -10, 5, -10);
            // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
            line(0,0, 0, unorderedArray[i] );
         }
