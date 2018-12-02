@@ -1,7 +1,9 @@
+var canvas;
+
 function setup() {
     var parent = 'sketch-holder';
     var width = document.getElementById(parent).offsetWidth;
-    var canvas = createCanvas(width-100, width-100);
+    canvas = createCanvas(width-100, width/2);
     canvas.parent(parent);
     background(200);
   }
@@ -372,7 +374,7 @@ function bubble(){
         background(200);
         fill(0);
         // draw the array
-        translate(30,20);
+        translate(30, canvas.height - 10);
         for(var i=0; i< unorderedArray.length; i++){
             translate(10,0);
             //line(0, 0, 0, unorderedArray[i]*10);
@@ -387,7 +389,7 @@ function bubble(){
             }
 
            // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
-           line(0,0, 0, unorderedArray[i] );
+           line(0,0, 0, -unorderedArray[i] );
         }
 
     }
@@ -568,11 +570,13 @@ function quickSort(){
                     ri--;
                     redraw();
                     setTimeout(partition(le, ri, piv), speed);
-                   
+                    return;
                 }
                 redraw();
+                
             }
             redraw();
+            return;
         }
         
         redraw();
@@ -621,6 +625,206 @@ function quickSort(){
            line(0,0, 0, unorderedArray[i] );
         }
 
+    }
+
+}
+
+
+
+function quickSortIte(){
+
+    //var arr = [20,60,30,10,50];
+    var speed = 60;
+    frameRate(speed);
+    var arr = createArrayOfRandomVals();
+    //console.log(unorderedArray);
+    //noLoop();
+    //redraw();
+    loop();
+    var top = 0;
+    var ini = 0;
+    var fin = 0;
+    var pos = 0;
+
+    var izq = 0;
+    var der = 0;
+    var aux = 0;
+    var band = true;
+
+    var step = 1;
+
+    var pilaMen = [];
+    var pilaMay = [];
+
+    //setup
+    pilaMen.push(0);
+    pilaMay.push(arr.length-1);
+    
+    draw = function(){
+
+        switch(step){
+            case 1: 
+                step1();
+                break;
+            case 2: 
+                step2();
+                break;
+            case 3: 
+                step3();
+                break;
+            case 4: 
+                step4();
+                break;
+            case 5: 
+                step5();
+                break;
+            case 6: 
+                step6();
+                break;
+            case 7: 
+                step7();
+                break;
+            case 8: 
+                step8();
+                break;
+        }
+
+        console.log('Ini: ' + ini + ' Fin: ' + fin + ' Pos: ' + pos + ' PilaMen: ' + pilaMen + ' PilaMay: ' +pilaMay + ' Step: ' + step );
+        drawArray();
+    }
+
+    function step1(){
+        if(pilaMen.length != 0 || pilaMay.length != 0){
+            ini = pilaMen.pop();
+            fin = pilaMay.pop();
+            //top--;
+            step = 2;
+        }
+        else{
+            noLoop();
+            //redraw();
+        }
+
+    }
+    function step2(){
+        izq = ini;
+        der = fin;
+        pos = ini;
+        band = true;
+        step = 3
+    }
+    function step3(){
+
+        if(band){
+            if(arr[pos] <= arr[der] && pos != der){
+                der--;
+            }
+            else{
+                step = 4
+            }
+        }
+        else{
+            step = 7;
+        }
+    }
+    function step4(){
+        if(pos == der){
+            band = false;
+            step = 3
+        }
+        else{
+            aux = arr[pos];
+            arr[pos] = arr[der];
+            arr[der] = aux;
+            pos = der;
+            step = 5;
+        }
+        
+    }
+    function step5(){
+        if(arr[pos] >= arr[izq] && pos != izq){
+            izq++;
+        }
+        else{
+            step = 6;
+        }
+    }
+    function step6(){
+        if(pos == izq){
+            band = false;
+        }
+        else{
+            aux = arr[pos];
+            arr[pos] = arr[izq];
+            arr[izq] = aux;
+            pos = izq;
+        }
+        step = 3;
+    }
+    function step7(){
+        if(ini <= (pos - 1)){
+            //top++;
+            pilaMen.push(ini);
+            pilaMay.push(pos-1);
+        }
+        step = 8;
+    }
+    function step8(){
+        if(fin >= pos+1){
+            //top++;
+            pilaMen.push(pos+1);
+            pilaMay.push(fin);
+        }
+        step = 1;
+    }
+
+    
+
+
+    function drawArray(){
+        //console.log('Draw Functions');
+
+       // clear();
+        
+        background(200);
+        fill(0);
+        // draw the array
+        translate(30,20);
+        for(var i=0; i< arr.length; i++){
+            translate(10,0);
+            //line(0, 0, 0, unorderedArray[i]*10);
+
+            // betweem start and end
+
+            stroke('black');
+            if(i == pos) {
+                fill(0,0,255);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+             if(i == ini){
+                fill(0,255,0);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            if(i == fin){
+                fill(255,0,0);
+                triangle(0,-5, -5, -10, 5, -10);
+            }
+            
+            
+            if(i >= ini && i <= fin){
+                fill(32,200,150);
+                stroke('red');
+            }
+            else{
+                stroke('green');
+            }
+            
+            //strokeWeight(4);
+            //triangle(0,-5, -5, -10, 5, -10);
+           // rect(0, 0, barWidth, unorderedArray[i] *5, 0, 0, 5, 5);
+           line(0,0, 0, arr[i] );
+        }
+        
     }
 
 }

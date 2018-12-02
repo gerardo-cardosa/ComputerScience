@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>This is a test</title>
+    </head>
+
+    <body>
+            <canvas id="myCanvas" width="800" height="500" style="border:1px solid #d3d3d3;">
+                    Your browser does not support the HTML5 canvas tag.</canvas>
+                    
+                    <script>
+                    
+                    var c = document.getElementById("myCanvas");
+                    var ctx = c.getContext("2d");
+                    var w = c.width;
+                    var h = c.height;
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+
+                    //let arr = [1,5,3,4,7,5,2,8,99,100,44,55,66,77,33, 200, 300];
+                    let arr = createArrayOfRandomVals();
+
+                    function buble(){
+                        for(var i = 0; i < arr.length; i++){
+                            for(var j = i; j< arr.length; j++){
+                                if(arr[i] > arr[j]){
+                                    swap(arr, i, j);
+                                }
+                                //window.requestAnimationFrame(draw);
+                                draw();
+                                
+                            }
+                        }
+                    }
+
+                    function swap(arr, i, j){
+                        let swap = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = swap;
+                    }
+
+                    function draw(){
+                       // console.log(arr);
+                        ctx.clearRect(0, 0, w, h);
+
+                        ctx.beginPath();
+                        
+                        
+
+                        for(var i = 0; i < arr.length; i++){
+                            // draw line
+                            ctx.moveTo(5 + 5*i , h-5);
+                            ctx.lineTo(5 + 5*i , h - 5 - arr[i]   );
+                        }
+
+                        
+                        ctx.stroke();
+
+                                               
+                        
+                        //window.requestAnimationFrame(draw);
+                    }
+                    
+                    
+                    
+                   // window.requestAnimationFrame(draw);
+                    window.requestAnimationFrame(buble);
+
+
+                    function createArrayOfRandomVals(){
+                        var size = Math.floor( Math.random() * 100); 
+
+                        var arr = []
+                        for(var i = 0; i<=size; i++){
+                            arr[i] = Math.floor(Math.random() * 500);  
+                        }
+                        return arr;
+                    }
+                    
+                    </script>
+    </body>
+</html>
