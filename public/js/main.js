@@ -1329,7 +1329,7 @@ function populateBST(){
     popBST( arr, min, max);
 }
 
-
+ 
 function popBST( arr, left, right){
     if(left > right || right <=left){
         return;
