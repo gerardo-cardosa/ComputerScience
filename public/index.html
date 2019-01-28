@@ -59,7 +59,7 @@
                       </h5>
                     </div>
                 
-                    <div id="sortingAlgorithmsList" class="collapse show" aria-labelledby="sortingAlgorithms" data-parent="#sortingAlgorithmsAccordion">
+                    <div id="sortingAlgorithmsList" class="collapse" aria-labelledby="sortingAlgorithms"   data-parent="#sortingAlgorithmsAccordion">
                       <div class="card-body">
                           <button type="button" onclick="bubble()" class="btn btn-secondary btn-lg btn-block">Bubble Sort</button>
                           <button type="button" onclick="selection()" class="btn btn-secondary btn-lg btn-block">Selection</button>
@@ -153,11 +153,11 @@
                           </button>
                         </h5>
                       </div>
-                      <div id="TreesList" class="collapse" aria-labelledby="Trees" data-parent="#sortingAlgorithmsAccordion">
+                      <div id="TreesList" class="collapse show" aria-labelledby="Trees" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Basic trees</button>
+                            <button type="button" onclick="basicTree()" class="btn btn-secondary btn-lg btn-block">Basic trees</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Binary trees</button>
-                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Binary search tree</button>
+                            <button type="button" onclick="binSearchTree()" class="btn btn-secondary btn-lg btn-block ">Binary search tree</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Tries</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Balanced tree</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">ALV trees</button>
@@ -175,9 +175,9 @@
                           </button>
                         </h5>
                       </div>
-                      <div id="GraphsList" class="collapse" aria-labelledby="Graphs" data-parent="#sortingAlgorithmsAccordion">
+                      <div id="GraphsList" class="collapse " aria-labelledby="Graphs" data-parent="#sortingAlgorithmsAccordion">
                         <div class="card-body">
-                            <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Graphs</button>
+                            <button type="button" onclick="graphInit()" class="btn btn-secondary btn-lg btn-block ">Graphs</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Graph search</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Topological sort</button>
                             <button type="button" class="btn btn-secondary btn-lg btn-block disabled">Dijkstra's algorithm</button>  

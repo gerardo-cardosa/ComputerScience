@@ -13,11 +13,11 @@ var draw = function(){
 }
 
 function createArrayOfRandomVals(){
-    var size = Math.floor(Math.random() * 100); 
+    var size = Math.floor(Math.random() * 200) +1; 
 
     var arr = []
     for(var i = 0; i<=size; i++){
-        arr[i] = Math.floor(Math.random() * 500);  
+        arr[i] = Math.floor(Math.random() * 700);  
     }
     return arr;
 }
@@ -791,7 +791,7 @@ function quickSortIte(){
         // draw the array
         translate(30,20);
         for(var i=0; i< arr.length; i++){
-            translate(10,0);
+            translate(3,0);
             //line(0, 0, 0, unorderedArray[i]*10);
 
             // betweem start and end
@@ -828,3 +828,525 @@ function quickSortIte(){
     }
 
 }
+
+
+////////////////////////////////////////////////////////////
+class GraphNode{
+    constructor(name,value){
+        this.name = name; 
+        this.value = value;
+        this.isVisited = false;
+        this.children = new Map();
+        this.parents = new Map();
+        this.x = 0;
+        this.y = 0;
+    }
+}
+class Graph{
+    constructor(){
+        this.Nodes = new Map();
+       // this.Edges = new Map();
+    }
+
+    createNote(name, value){
+        const newNode = new GraphNode(name, value)
+        this.Nodes.set(name, newNode);
+        //this.Edges.set(name, new Map());
+    }
+
+    addMultiDirEdge(node1, node2){
+        const firstNode = this.Node.get(node1);
+        const secondNode = this.Node.get(node2);
+
+        firstNode.children.set(secondNode.name, secondNode);
+        secondNode.children.set(firstNode.name ,firstNode);
+    }
+
+    addDirectedEdge(from, to){
+        const fromNode = this.Node.get(from);
+        const toNode = this.Node.get(to);
+
+        from.children.set(to, true);
+        to.parents.set(from, true);
+    }
+
+    deleteNode(node){
+        const currNode = this.Nodes.get(node);
+        for(const child of currNode.children){
+            child.parents.delete(node);
+            child.children.delete(node);
+        }
+
+        for(const parent of currNode.parents){
+            parent.children.delete(node);
+        }
+
+        this.Nodes.delete(node);
+    }
+
+}
+
+
+
+function graphInit(){
+
+    var parent = 'sketch-holder';
+    var width = document.getElementById(parent).offsetWidth;
+
+    //add buttons to add more nodes
+    //display
+    const buttons = `
+        <text id="NodeName">
+        <text id="NodeValue">
+        <button id="addNode" type="button" onclick="addNode()">Add Node</button>
+    `;
+
+
+    const names =[
+        ['John', 10],
+        ['Jon', 3],
+        ['Davis', 2],
+        ['Kari', 3],
+        ['Johnny', 11],
+        ['Carlton', 8],
+        ['Carleton', 2],
+        ['Jonathan', 9],
+        ['Carrie', 5]
+    ];
+    
+    const synonyms = [
+        ['Jonathan','John'],
+        ['Jon','Johnny'],
+        ['Johnny','John'],
+        ['Kari','Carrie'],
+        ['Carleton','Carlton']
+    ];
+
+
+    const graph = new Graph();
+
+    for(const [name, val] of names){
+        graph.createNote(name, val);
+    }
+
+    noLoop();
+
+
+    draw = function(){
+        translate(width / 2, height / 4);
+        
+
+        let grados = 360/graph.Nodes.size;
+        let curr = 0;
+        let vector = p5.Vector.fromAngle(radians(curr));
+
+        for(const [key,node] of graph.Nodes){
+            translate(p5.Vector.fromAngle(radians(curr), 180));
+           //console.log('X:', vector.x, ' Y', vector.y);
+           node.x = vector.x;
+           node.y = vector.y;
+            ellipse(vector.x,vector.y,75,75);
+            const txt = `${node.name} \n  ${node.value}`;
+            text(txt, 0-15, 0);
+            vector = vector.rotate(HALF_PI);
+            curr += grados;
+        }
+
+
+        for(const [key,node] of graph.Nodes){
+            if(node.isVisited){
+                node.isVisited = true;
+
+                for(const child of node.children){
+                    line(node.x, node.y, child.x, child.y);
+                }
+            }
+        }
+
+
+    }
+
+
+
+
+}
+
+
+
+
+///////////////////////////////////////////////////////////
+class TreeNode{
+    constructor(value){
+        this.value = value;
+        this.children = [];
+        this.isVisited = false;
+        this.x = 0;
+        this.y = 0;
+    }
+}
+
+class Tree{
+    constructor(){
+        this.root = null;
+    }
+}
+
+function populateTree(distance){
+    const tree = new Tree();
+    tree.root = new TreeNode(5);
+    for(let i = 0; i< 5; i++){
+        const nodo = new TreeNode(i);
+        nodo.y = distance*3;
+        nodo.x = -(distance* 2 * 5) + (distance * i * 5);
+        tree.root.children.push(nodo);
+        for(let j = 10*i, dis = -2; j< (10*i)+6; j++, dis++){
+            const child = new TreeNode(j);
+            child.y = distance * (6 + 2* i);
+            child.x = nodo.x + dis * distance * 2;
+            nodo.children.push(child);
+        }
+    }
+    return tree;
+}
+
+function basicTree(){
+    var parent = 'sketch-holder';
+    var width = document.getElementById(parent).offsetWidth;
+
+    const nodeSize = 40;
+    const tree = populateTree(nodeSize);    
+    let queue = [];
+    let drawQueue = []
+    queue.push(tree.root);
+    drawQueue.push(tree.root);
+
+    console.log('basic tree');
+
+    let isBFS = true;
+    let prevState = true;;
+
+    frameRate(2);
+    draw =  function(){
+        background(200);
+        //clear();
+        //console.log('draw');
+        translate(width/2-nodeSize/2, nodeSize);
+        const prev = null;
+
+        while(queue.length > 0){
+                const current = queue.pop();
+                //console.log('IS visited:' , current.isVisited)
+                if(current.isVisited){
+                    fill('#D2FF9E');
+                }
+                else{
+                    fill('#FFFFFF');
+                }
+                ellipse(current.x, current.y ,55,55);
+                fill('black');
+                text(current.value,current.x,current.y);
+                for(const child of current.children){
+                    line(current.x, current.y, child.x, child.y);
+                    queue.unshift(child);
+                }
+            }
+
+        if(drawQueue.length >0){
+            if(isBFS){
+                const curr = drawQueue.pop();
+                curr.isVisited = true;
+                for(const node of curr.children){
+                    drawQueue.unshift(node);
+                }
+            }
+            else{
+                const curr = drawQueue.pop();
+                curr.isVisited = true;
+            }
+        }else{
+            resetVisited(tree.root);
+
+            if(prevState){
+                isBFS = false;
+            }
+            else{
+                isBFS = true;
+            }
+            
+            if(isBFS){
+                drawQueue.push(tree.root);
+               
+            }
+            else{
+                console.log('Root', tree.root);
+                DFS(tree.root, drawQueue);
+                console.log('Drawqueue: ', drawQueue.length)
+                
+            }
+
+            prevState = prevState? false: true;
+            
+        }
+
+        if(queue.length <=0){
+            queue.push(tree.root);
+        }
+
+
+        
+    }
+
+}
+
+function DFS(root, list){
+   // console.log('Dfs nodo: ', root);
+    for(const child of root.children){
+        DFS(child, list);
+    }
+
+    list.unshift(root);
+}
+
+function resetVisited(node){
+    node.isVisited = false;
+    for(const child of node.children){
+        resetVisited(child);
+    }
+
+}
+
+
+///////////////////////////////////////////////////////////
+/// binary search tree
+class BinarySearchTreeNode{
+    constructor(value){
+        this.value = value;
+        this.left = null;
+        this.right = null;
+        this.isVisited = false;
+        this.x = 0;
+        this.y = 0;
+    }
+}
+
+class BinarySearchTree{
+    constructor(value){
+        this.root = new BinarySearchTreeNode(value);
+    }
+
+    addVal(value, offset){
+        const newNode = new BinarySearchTreeNode(value);
+        this.addNode(newNode, this.root, 1, -offset/2, offset/2);
+    }
+
+    addNode(newNode, root, level, start, end){
+
+        console.log('NewNode Val: ', newNode.value, ' RootVa: ', root.value, ' Is new > root? ' , newNode.value>root.value, ' is new < root? ', newNode.value<root.value);
+        if(root == null){
+            root = newNode;
+            root.y = level;
+            root.x = start + (end - start)/2;
+            console.log('Value Added ', start, end);
+            return root;
+        }
+        else if (newNode.value < root.value){
+           // console.log('possition: ',start, start + (Math.abs(end- start))/2,  (Math.abs(end- start))/2);
+            if(root.left == null){                
+                root.left = newNode; //this.addNode(newNode, root.left, level+1, start, start + (Math.abs(end- start))/2 );
+                return;
+            }
+            this.addNode(newNode, root.left, level+1, start, start + (Math.abs(end-start))/2 );
+            
+        }
+        else if(newNode.value > root.value){
+            //console.log('possition: ',start, start + (Math.abs(end- start))/2,  (Math.abs(end- start))/2);
+            if(root.right == null){
+                root.right = newNode;//this.addNode(newNode, root.right, level+1, end - (Math.abs(end-start))/2, end  );
+                return;
+            }
+            this.addNode(newNode, root.right, level+1, end -(Math.abs(end-start))/2, end );
+        }
+    }
+
+    // drawTree(size){
+    //     this.drawNode(this.root, size);
+    // }
+
+    // drawNode(root, size, parent){
+    //     if(root == null)
+    //         return;
+        
+    //     if(parent != undefined){
+    //         line(parent.x, parent.y*50, root.x, root.y*50)
+    //     }
+    //     ellipse(root.x, root.y*50, size, size);
+    //     text(root.value, root.x-size/4, root.y*50);
+    //     this.drawNode(root.left, size, root);
+    //     this.drawNode(root.right, size, root);
+    // }
+
+    drawTree(size, start, end){
+        this.drawNode(this.root,  size, end/2 ,end, 2);
+    }
+
+    drawNode(node, size, pos, width, level){
+        
+        let posRight = pos + width/Math.pow(2,level);
+        let posLeft = pos - width/Math.pow(2,level);
+
+       // console.log("PosLeft: ",posRight);
+        if(posLeft < letftLim || posRight > rightLim){
+            scaleMagnitude -= 0.25;
+            letftLim -= 40;
+            rightLim+=300
+            transMagni+=4;
+        }
+        
+        ellipse(pos-size, level*50, size, size);
+        text(node.value,pos-size ,level*50 )
+
+        if(node.left != null){
+            line(pos-size, level*50, posLeft-size, (level+1)*50);
+            this.drawNode(node.left, size, posLeft, width, level+1);
+        }
+
+        if(node.right != null){
+            line(pos-size, level*50, posRight-size, (level+1)*50);
+            this.drawNode(node.right, size, posRight, width, level+1);
+        }
+    }
+
+}
+
+let bst= null;//new BinarySearchTree(10);
+let  width;
+let scaleMagnitude = 1;
+let letftLim = 40;
+let rightLim = 900;
+let transMagni = 0;
+
+function addValue(){
+    let text = document.getElementById('valueText');
+    if (text.value===""){
+        return;
+    }
+    let intVal = parseInt(text.value);
+    if(bst == null){
+        bst = new BinarySearchTree(intVal);
+    }else{
+        bst.addVal(intVal, width);
+    }
+    console.log('Added value:',intVal);
+    text.value = '';
+}
+
+function invertBinaryTree(){
+    console.log('Invert tree')
+    if(bst == null || bst.root == null){
+        return
+    }
+
+    invertTree(bst.root);
+}
+
+function invertTree(root){
+    const temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+
+    if(root.left != null){
+        invertTree(root.left);
+    }
+
+    if(root.right != null){
+        invertTree(root.right);
+    }
+}
+
+function binSearchTree(){
+    console.log('Binary Search Tree');
+    var parent = 'sketch-holder';
+    width = document.getElementById(parent).offsetWidth;
+
+    let addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.value = 'Add Value';
+    addButton.innerText = "Add Value";
+    addButton.onclick = addValue;
+
+    let valueText = document.createElement('input');
+    valueText.type = 'number';
+    valueText.id = 'valueText';    
+    document.getElementById(parent).appendChild(valueText);
+    document.getElementById(parent).appendChild(addButton);
+
+    let invertButton = document.createElement('button');
+    invertButton.type = 'button';
+    invertButton.value = 'invert Tree';
+    invertButton.innerText = "invert Tree";
+    invertButton.onclick = invertBinaryTree;
+    document.getElementById(parent).appendChild(invertButton);
+
+    const nodeSize = 40;
+    
+    draw = function() {
+        background(200);
+        if(transMagni >0){
+            translate(width/Math.pow(2,transMagni), nodeSize);
+        }
+        //line(0,0, width, 0);
+
+        scale(scaleMagnitude);
+        if(bst != null){
+            bst.drawTree(nodeSize, 0, width);
+        }
+        // let start = 0;
+        // let end = width;
+        // let half = (end-start)/2 ;
+        // ellipse(half - nodeSize,0,nodeSize, nodeSize );
+
+        // let half2 = (half-start)/2;
+        // ellipse(half2-nodeSize,100,nodeSize, nodeSize );
+
+        // let half3 = (end-half)/2 + half;
+        // ellipse(half3-nodeSize,100,nodeSize, nodeSize );
+
+    }
+
+}
+
+function populateBST(){
+    let min =0;
+    let max = 100;
+    let half = max/2;
+    let arr = [];
+    let count =0;
+    bst = null;
+    for(let i =0; i<=max; i++){
+        arr.push(i);
+    }
+    console.log(arr)
+    popBST( arr, min, max);
+}
+
+
+function popBST( arr, left, right){
+    if(left > right || right <=left){
+        return;
+    }
+
+
+    let half = Math.floor((right+left)/2);
+    console.log(half);
+    if(bst == null){
+        bst = new BinarySearchTree(arr[half]);
+    }
+    else{
+        bst.addVal(arr[half]);
+    }
+
+    popBST( arr, left, half);
+    popBST( arr, half+1, right);
+}
+
+
