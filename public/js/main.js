@@ -1198,7 +1198,7 @@ class BinarySearchTree{
         if(posLeft < letftLim || posRight > rightLim){
             scaleMagnitude -= 0.25;
             letftLim -= 40;
-            rightLim+=300
+            rightLim+=700
             transMagni+=4;
         }
         
@@ -1268,24 +1268,26 @@ function binSearchTree(){
     var parent = 'sketch-holder';
     width = document.getElementById(parent).offsetWidth;
 
-    let addButton = document.createElement('button');
-    addButton.type = 'button';
-    addButton.value = 'Add Value';
-    addButton.innerText = "Add Value";
-    addButton.onclick = addValue;
+    if(document.getElementById('valueText') == null){
+        let addButton = document.createElement('button');
+        addButton.type = 'button';
+        addButton.value = 'Add Value';
+        addButton.innerText = "Add Value";
+        addButton.onclick = addValue;
 
-    let valueText = document.createElement('input');
-    valueText.type = 'number';
-    valueText.id = 'valueText';    
-    document.getElementById(parent).appendChild(valueText);
-    document.getElementById(parent).appendChild(addButton);
+        let valueText = document.createElement('input');
+        valueText.type = 'number';
+        valueText.id = 'valueText';    
+        document.getElementById(parent).appendChild(valueText);
+        document.getElementById(parent).appendChild(addButton);
 
-    let invertButton = document.createElement('button');
-    invertButton.type = 'button';
-    invertButton.value = 'invert Tree';
-    invertButton.innerText = "invert Tree";
-    invertButton.onclick = invertBinaryTree;
-    document.getElementById(parent).appendChild(invertButton);
+        let invertButton = document.createElement('button');
+        invertButton.type = 'button';
+        invertButton.value = 'invert Tree';
+        invertButton.innerText = "invert Tree";
+        invertButton.onclick = invertBinaryTree;
+        document.getElementById(parent).appendChild(invertButton);
+    }
 
     const nodeSize = 40;
     
@@ -1349,4 +1351,147 @@ function popBST( arr, left, right){
     popBST( arr, half+1, right);
 }
 
+//////////////////////////////////////////////////////////////////////
 
+///// Min Heap - with array
+
+//////////////////////////////////////////////////////////////////////
+
+let minHeap = [1,2,3,4,5,6,7];
+function setMinHeap(){
+
+    console.log('Binary Search Tree');
+    var parent = 'sketch-holder';
+    width = document.getElementById(parent).offsetWidth;
+    //document.getElementById(parent).innerHTML = '';
+
+    if(document.getElementById('valueTextMinHeap') == null){
+        let addButton = document.createElement('button');
+        addButton.type = 'button';
+        addButton.value = 'Add Value';
+        addButton.innerText = "Add Value";
+        addButton.onclick = minHeapAdd;
+
+        let removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.value = 'Remove Value';
+        removeButton.innerText = "Remove Value";
+        removeButton.onclick = minHeapRemove;
+
+        let valueText = document.createElement('input');
+        valueText.type = 'number';
+        valueText.id = 'valueTextMinHeap';    
+        document.getElementById(parent).appendChild(valueText);
+        document.getElementById(parent).appendChild(addButton);
+        document.getElementById(parent).appendChild(removeButton);
+
+    }
+    
+
+    
+
+    draw = function(){
+        clear();
+        background(200);
+        translate(width/2, 20);
+
+        if(minHeap.length > 1){ 
+            drawMinHeap(minHeap, 0, 0, 0);
+        }
+    }
+}
+
+function drawMinHeap(minHeap, index, posX, posY){
+    if(index >= minHeap.length ){
+        return;
+    }
+    ellipse(posX,posY, 50,50);
+    text(minHeap[index], posX,posY);
+
+    let left = index == 0? 100: 100/index;
+    //left
+    if( (index *2+1) < minHeap.length){
+        line(posX, posY,posX-left, posY+100 );
+    }
+    drawMinHeap(minHeap, index *2+1,posX-left, posY+ 100);
+
+    //right
+    if( (index *2+2) < minHeap.length){
+        line(posX, posY,posX+left, posY+100 );
+    }
+    drawMinHeap(minHeap, index*2 +2, posX +left, posY+100);
+}
+
+
+
+function minHeapAdd(){
+    let text = document.getElementById('valueTextMinHeap');
+    if (text.value===""){
+        return;
+    }
+    let intVal = parseInt(text.value);
+    minHeap.push(intVal);
+    let currentPos = minHeap.length-1;
+    //buble up
+    let parentPos = parseInt((currentPos-1)/2);
+
+    while(currentPos >=0 && minHeap[currentPos] < minHeap[parentPos]){
+        let temp = minHeap[currentPos];
+        minHeap[currentPos] = minHeap[parentPos];
+        minHeap[parentPos] = temp;
+
+        currentPos = parentPos;
+        parentPos = parseInt((currentPos-1)/2);
+
+    }
+
+    text.value = '';
+
+}
+
+function minHeapRemove(){
+    if(minHeap.length <=0){
+        return;
+    }
+
+    let last = minHeap.pop();
+    minHeap[0] = last;
+    let currentPos = 0;
+
+    let leftChildPos =  currentPos *2 +1;
+    let rightChildPos = currentPos*2 +2;
+
+    let leftChild = minHeap.length > leftChildPos? minHeap[leftChildPos]: null;
+    let rightChild = minHeap.length > rightChildPos? minHeap[rightChildPos]: null;
+
+    while(true){
+        if(leftChild == null && rightChild== null){
+            return;
+        }
+        else if(leftChild != null && rightChild==null){
+            if(minHeap[currentPos] < minHeap[leftChildPos]){
+                return;
+            }
+            
+            let temp = minHeap[currentPos];
+            minHeap[currentPos] = minHeap[leftChildPos];
+            minHeap[leftChildPos] = temp;
+            return;
+        }
+        else{
+            let childPos = leftChild < rightChild? leftChildPos: rightChildPos;
+
+            let temp = minHeap[currentPos];
+            minHeap[currentPos] = minHeap[childPos];
+            minHeap[childPos] = temp;
+
+            currentPos = childPos;
+
+            leftChildPos =  currentPos *2 +1;
+            rightChildPos = currentPos*2 +2;
+            leftChild = minHeap.length > leftChildPos? minHeap[leftChildPos]: null;
+            rightChild = minHeap.length > rightChildPos? minHeap[rightChildPos]: null;
+        }
+    }
+
+}
